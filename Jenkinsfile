@@ -9,7 +9,7 @@ pipeline {
 
     stage('clone') {
       steps {
-        bat "echo %~dp0"
+        bat 'echo %~dp0'
       }
     }
 
