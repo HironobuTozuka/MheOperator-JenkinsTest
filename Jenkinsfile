@@ -9,22 +9,23 @@ pipeline {
 
     stage('clone') {
       steps {
-        bat "cd ${GIT_DIR}"
+        bat "cd ${WORK_DIR}"
         bat "rmdir /s /q ${TARGET_DIR}"
-        bat 'git clone https://github.com/HironobuTozuka/MheOperator-JenkinsTest.git'
+        bat "git clone ${GIT_URL}"
       }
     }
 
     stage('build') {
       steps {
-        bat "\"${MSBUILD}\" \"${GIT_DIR}${TARGET_PRJ}\" /p:Configuration=${env.CONFIG};Platform=\"${env.PLATFORM}\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
+        bat "\"${MSBUILD}\" \"${WORK_DIR}${TARGET_DIR}${TARGET_PRJ}\" /p:Configuration=${env.CONFIG};Platform=\"${env.PLATFORM}\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
       }
     }
 
   }
   environment {
+    GIT_URL = 'https://github.com/HironobuTozuka/MheOperator-JenkinsTest.git'
     MSBUILD = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe'
-    GIT_DIR = 'C:\\Users\\d0613\\OneDrive\\Documents\\GitHub\\'
+    WORK_DIR = 'C:\\Users\\d0613\\OneDrive\\Documents\\GitHub\\'
     TARGET_DIR = 'MheOperator-JenkinsTest\\'
     TARGET_PRJ = 'MheOperator.sln'
     CLONE_BAT = 'clone.bat'
