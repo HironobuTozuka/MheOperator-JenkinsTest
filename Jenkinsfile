@@ -7,9 +7,15 @@ pipeline {
       }
     }
 
+    stage('clone') {
+      steps {
+        echo 'test'
+      }
+    }
+
     stage('build') {
       steps {
-        bat "\"${MSBUILD}\" ${TARGET} /p:Configuration=${env.CONFIG};Platform=\"${env.PLATFORM}\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
+        bat '"\\"${MSBUILD}\\" ${TARGET} /p:Configuration=${env.CONFIG};Platform=\\"${env.PLATFORM}\\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"'
       }
     }
 
