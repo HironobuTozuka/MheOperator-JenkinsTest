@@ -22,7 +22,7 @@ pipeline {
   }
   environment {
     MSBUILD = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe'
-    TARGET_PRJ = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins.jenkins\\workspace\\MheOperator-JenkinsTest_master'
+    TARGET_PRJ = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins.jenkins\\workspace\\MheOperator-JenkinsTest_master\\MheOperator.sln'
     CONFIG = 'Release'
     PLATFORM = 'Any CPU'
   }
