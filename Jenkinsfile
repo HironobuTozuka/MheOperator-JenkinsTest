@@ -6,7 +6,6 @@ pipeline {
         echo 'start'
       }
     }
-
     stage('clone') {
       steps {
         bat "\"${TARGET_DIR}${CLONE_BAT}\""
