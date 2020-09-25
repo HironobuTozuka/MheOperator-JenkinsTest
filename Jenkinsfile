@@ -18,6 +18,6 @@ pipeline {
     MSBUILD = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe'
     TARGET = 'C:\\Users\\d0613\\OneDrive\\Documents\\GitHub\\MheOperator-JenkinsTest\\MheOperator.sln'
     CONFIG = 'Release'
-    PLATFORM = 'x64'
+    PLATFORM = 'Any CPU'
   }
 }
