@@ -9,7 +9,7 @@ pipeline {
 
     stage('clone') {
       steps {
-        echo 'test'
+        cd TARGET_DIR
       }
     }
 
