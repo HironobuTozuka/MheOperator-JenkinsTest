@@ -15,13 +15,6 @@ pipeline {
 
     stage('build') {
       steps {
-        bat 'echo %~dp0'
-        bat 'cd ..'
-        bat 'echo %~dp0'
-        bat 'cd ..'
-        bat 'echo %~dp0'
-        bat 'cd MheOperator-JenkinsTest_master'
-        bat 'echo %~dp0'
         bat "\"${MSBUILD}\" \"${TARGET_PRJ}\" /p:Configuration=${env.CONFIG};Platform=\"${env.PLATFORM}\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
       }
     }
@@ -29,7 +22,7 @@ pipeline {
   }
   environment {
     MSBUILD = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe'
-    TARGET_PRJ = 'MheOperator.sln'
+    TARGET_PRJ = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins.jenkins\\workspace\\MheOperator-JenkinsTest_master'
     CONFIG = 'Release'
     PLATFORM = 'Any CPU'
   }
