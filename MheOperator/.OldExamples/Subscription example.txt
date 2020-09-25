@@ -1,0 +1,82 @@
+﻿
+        public async Task Subscribe()
+        {
+            //var subscriptionRequest = new CreateSubscriptionRequest
+            //{
+            //    RequestedPublishingInterval = 500,
+            //    RequestedMaxKeepAliveCount = 10,
+            //    RequestedLifetimeCount = 30,
+            //    PublishingEnabled = true
+            //};
+            //var subscriptionResponse = await _channel.CreateSubscriptionAsync(subscriptionRequest);
+            //var id = subscriptionResponse.SubscriptionId;
+            //var ItemsToCreate = new MonitoredItemCreateRequest[]
+            //    { new MonitoredItemCreateRequest()
+            //        {
+            //             ItemToMonitor = new ReadValueId
+            //             {
+            //                 // you can parse the nodeId from a string.
+            //                 NodeId = NodeId.Parse("ns=4;s=|var|CODESYS Control for Raspberry Pi SL.Application.GVL.ToteMoveRequest1"),
+            //                 // variable class nodes have a Value attribute.
+            //                 AttributeId = AttributeIds.Value
+            //             },
+            //            MonitoringMode = MonitoringMode.Reporting,
+            //            RequestedParameters = new MonitoringParameters
+            //            {
+            //                ClientHandle = 1201,
+            //                SamplingInterval = -1,
+            //                QueueSize = 0,
+            //                DiscardOldest = true
+            //            }
+            //        }
+            //    };
+            //var itemsRequest = new CreateMonitoredItemsRequest
+            //{
+            //    SubscriptionId = id,
+            //    ItemsToCreate = ItemsToCreate,
+            //};
+            //var itemsResponse = await _channel.CreateMonitoredItemsAsync(itemsRequest).ConfigureAwait(false);
+            ////Publish the subscription
+            //var publishRequest = new PublishRequest
+            //{
+            //    SubscriptionAcknowledgements = new SubscriptionAcknowledgement[0]
+            //};
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("testSettings.json", true)
+                .Build();
+
+            var app = new UaApplicationBuilder()
+                .SetApplicationUri($"urn:{Dns.GetHostName()}:Workstation.UaClient.RCS")
+                .SetDirectoryStore(Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "Workstation.UaClient.RCS"))
+                .AddMappedEndpoints(config)
+                .ConfigureOptions(o => o.SessionTimeout = 30000)
+                .AddTypes(new[] { typeof(Models.OmronModels.ToteMoveRequest) })
+                .SetLoggerFactory(_logger)
+                .Build();
+
+            app.Run();
+
+            sub = new SubscribedSignals();
+            sub.PropertyChanged += ValueChanged;
+        }
+        
+        private void ValueChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var senderObject = sender as SubscribedSignals;
+            switch (e.PropertyName)
+            {
+                case "MoveRequest1":
+                    System.Diagnostics.Debug.WriteLine("Move request 1: " + senderObject.MoveRequest1.ToString());
+                    break;
+                case "MoveRequest2":
+                    System.Diagnostics.Debug.WriteLine("Move request 2: " + senderObject.MoveRequest2.ToString());
+                    break;
+                case "State":
+                    System.Diagnostics.Debug.WriteLine("State changed: " + senderObject.State);
+                    break;
+            }
+            
+        }

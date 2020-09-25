@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MheOperator</name>
+    </assembly>
+    <members>
+        <member name="M:MheOperator.Controllers.LocationController.LocationPress(System.Int32)">
+            <summary>
+            Executed when location is pressed on rack 
+            </summary>
+            <param name="locationId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MheOperator.Controllers.LocationController.EnableLocation(System.Int32)">
+            <summary>
+            Enables rack location
+            </summary>
+            <param name="id">id of location to enable</param>
+            <returns></returns>
+        </member>
+        <member name="M:MheOperator.Controllers.LocationController.DisableLocation(System.Int32)">
+            <summary>
+            Disables rack location
+            </summary>
+            <param name="id">id of location to disable</param>
+            <returns></returns>
+        </member>
+        <member name="M:MheOperator.StoreManagementApi.Controllers.TaskBundleController.PostTasks(MheOperator.StoreManagementApi.Models.TaskController.TaskBundleDataModel)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MheOperator.StoreManagementApi.Controllers.TaskBundleController.CancelTasks(MheOperator.StoreManagementApi.Models.TaskController.CancelTaskBundleDataModel)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MheOperator.StoreManagementApi.Controllers.TaskBundleController.UpdateTasks(MheOperator.StoreManagementApi.Models.TaskController.TaskBundleDataModel)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MheOperator.StoreManagementApi.Controllers.ZoneController.GetZoneList">
+            <summary>
+            Retrieves zone availability
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MheOperator.StoreManagementApi.Models.TaskController.CancelTaskBundleDataModel">
+            <summary>
+            Specifies task bundle to remove
+            </summary>
+        </member>
+        <member name="P:MheOperator.StoreManagementApi.Models.TaskController.CancelTaskBundleDataModel.TaskBundleId">
+            <summary>
+            Id of task bundle to remove
+            </summary>
+        </member>
+        <member name="T:MheOperator.StoreManagementApi.Models.TaskController.RemoveTaskBundleResponseDataModel">
+            <summary>
+            Provides response for task bundle remove
+            </summary>
+        </member>
+        <member name="P:MheOperator.StoreManagementApi.Models.TaskController.RemoveTaskBundleResponseDataModel.CanceledTaskIds">
+            <summary>
+            List of removed tasks from task bundle
+            </summary>
+        </member>
+        <member name="T:MheOperator.StoreManagementApi.Models.Zone.ZoneInfo">
+            <summary>
+            Describes zone location availability and it's functions
+            </summary>
+        </member>
+        <member name="P:MheOperator.StoreManagementApi.Models.Zone.ZoneInfo.ZoneId">
+            <summary>
+            Name of the zone
+            </summary>
+        </member>
+        <member name="P:MheOperator.StoreManagementApi.Models.Zone.ZoneInfo.TempRegime">
+            <summary>
+            Temperature regime of the zone
+            </summary>
+        </member>
+        <member name="P:MheOperator.StoreManagementApi.Models.Zone.ZoneInfo.Functions">
+            <summary>
+            Functions assigned to the zone
+            </summary>
+        </member>
+        <member name="P:MheOperator.StoreManagementApi.Models.Zone.ZoneInfo.AvailableLocations">
+            <summary>
+            Number of available empty locations
+            </summary>
+        </member>
+        <member name="T:MheOperator.StoreManagementApi.Models.Zone.ZoneList">
+            <summary>
+            Describes all available empty locations in the store
+            </summary>
+        </member>
+        <member name="P:MheOperator.StoreManagementApi.Models.Zone.ZoneList.Zones">
+            <summary>
+            List of available zones in the RCS store
+            </summary>
+        </member>
+    </members>
+</doc>

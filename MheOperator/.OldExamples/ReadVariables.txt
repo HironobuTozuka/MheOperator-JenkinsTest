@@ -1,0 +1,44 @@
+﻿//public async Task<object> WriteVar(int node, KeyValuePair<string, object>[] ValuesToSet)
+        //{
+        //    try
+        //    {
+        //        WriteValue[] valuesToWrite = new WriteValue[ValuesToSet.Length];
+        //        for (int i = 0; i < ValuesToSet.Length; i++)
+        //        {
+        //            valuesToWrite[i] = new WriteValue
+        //            {
+        //                // you can parse the nodeId from a string.
+        //                NodeId = NodeId.Parse("ns=" + node.ToString() + ";s=" + ValuesToSet[i].Key),
+        //                // variable class nodes have a Value attribute.
+        //                AttributeId = AttributeIds.Value,
+        //                Value = new DataValue(ValuesToSet[i].Value)
+        //            };
+        //        }
+
+
+        //        var writeRequest = new WriteRequest
+        //        {
+        //            NodesToWrite = valuesToWrite
+        //        };
+        //        // send the ReadRequest to the server.
+        //        var writeResult = await _channel.WriteAsync(writeRequest);
+        //        return writeResult;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogInformation("Opc error writing variables: " + ValuesToSet.ToString() + "for: " + _path + " Error raised: " + ex.Message);
+        //        if (ex.Message.Contains("Timeout"))
+        //        {
+        //            _logger.LogInformation("Opc Aborting on error writing variables: " + ValuesToSet.ToString());
+        //            await _channel.AbortAsync();
+        //            Connect();
+        //        }
+        //        else
+        //        {
+
+        //        }
+
+        //        return null;
+        //    }
+
+        //}

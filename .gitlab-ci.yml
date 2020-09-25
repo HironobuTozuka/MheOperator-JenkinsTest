@@ -1,0 +1,56 @@
+stages:
+  - build
+  - test
+  - docker
+
+variables:
+#  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  DOCKER_HOST: tcp://docker:2375
+
+build:
+  stage: build
+  image: mcr.microsoft.com/dotnet/core/sdk:3.1
+  only: 
+    - master
+  except: 
+    - tags
+  script:
+    - dotnet build
+    
+test:
+  stage: test
+  image: mcr.microsoft.com/dotnet/core/sdk:3.1
+  variables:
+    ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:9092,INTERNAL://localhost:29092'
+    LISTENERS: 'PLAINTEXT://0.0.0.0:9092,INTERNAL://0.0.0.0:29092'
+    SECURITY_PROTOCOL_MAP: 'PLAINTEXT:PLAINTEXT,INTERNAL:PLAINTEXT'
+    INTER_BROKER: 'INTERNAL'
+    KAFKA_CREATE_TOPICS: "ScanNotificationTopic:1:1,TransferRequestDoneTopic:1:1,PickRequestDoneTopic:1:1"
+    POSTGRES_HOST_AUTH_METHOD: trust
+    DATABASECONNECTION__CONNECTIONSTRING: "Host=postgres;Database=postgres;Username=postgres"
+    TESTS__DOCKERCOMPOSE__REQUIRED: "false"
+    PLCREQUESTQUEUESERVICE__KAFKAHOSTADDRESS: "kafka:9092"
+  services:
+    - name: postgres
+    - name: krisgeus/docker-kafka
+      alias: kafka
+  script:
+    - dotnet test
+
+docker:
+  stage: docker
+  image: docker:stable
+  services:
+    - docker:dind
+  only:
+    - tags 
+  before_script:
+    - export COMMIT_TIME=$(date +"%Y%m%d.%H%M%S")
+    - export DOCKER_IMAGE_VERSION=$COMMIT_TIME"_"$CI_COMMIT_TAG 
+    - docker login --username gitlab-ci-token --password $CI_JOB_TOKEN registry.gitlab.com
+  script:
+    - docker build -f "MheOperator/Dockerfile" -t registry.gitlab.com/romspolska/mheoperator/mheoperator:latest -t registry.gitlab.com/romspolska/mheoperator/mheoperator:$DOCKER_IMAGE_VERSION .
+    - docker push registry.gitlab.com/romspolska/mheoperator/mheoperator:latest   
+    - docker push registry.gitlab.com/romspolska/mheoperator/mheoperator:$DOCKER_IMAGE_VERSION
+#    - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest .
+#    - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest    

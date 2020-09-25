@@ -1,0 +1,87 @@
+﻿@using Common.Models;
+@using Data;
+@using Microsoft.EntityFrameworkCore;
+@model Common.Models.Tote.Tote
+@{
+    ViewData["Title"] = "Add Tote View";
+    var _context = (StoreDbContext)ViewData["context"];
+}
+
+<style>
+    td {
+        border: 1px solid gainsboro;
+    }
+
+    th {
+        background-color: #C0C0C0;
+    }
+
+    hr {
+        margin: 2px 0;
+    }
+</style>
+
+<h1>Add Tote View</h1>
+
+<div>
+    <a href="/ToteView">
+        <strong>
+            Back
+        </strong>
+
+    </a>
+    <br />
+
+    <div class="col-md-8">
+        <section id="settingsForm">
+            @using (Html.BeginForm("AddTote", "tote", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+            {
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="row">
+                    <div class="col-3">
+                        <strong>@Html.LabelFor(m => m.toteBarcode, new { @class = "control-label" }):</strong>
+                    </div>
+                    <div class="col-5">
+                        @Html.TextBoxFor(m => m.toteBarcode, new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-3">
+                        <strong>@Html.LabelFor(m => m.typeId, new { @class = "control-label" }):</strong>
+                    </div>
+                    <div class="col-5">
+                        @Html.DropDownListFor(m => m.typeId, new SelectList(_context.toteTypes, "id", "name").OrderBy(h => h.Text), new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Apply" />
+                    </div>
+                </div>
+
+            }
+        </section>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $.datetimepicker.setDateFormatter('moment');
+            $(".datetimefield").datetimepicker({
+                format: 'DD/MM/YYYY HH:mm',
+                formatTime: 'HH:mm'
+            });
+        });
+
+        $(".location-update").change(function () {
+            $('#storageLocation').val($('#currentLocation').val());
+        });
+    </script>
+}

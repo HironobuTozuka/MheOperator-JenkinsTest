@@ -1,0 +1,115 @@
+﻿@using Common.Models;
+@using Common.Models.Location
+@using Data;
+@model Common.Models.Location.Location
+@{
+    ViewData["Title"] = "Rack B2 View";
+    var _context = (StoreDbContext) ViewData["context"];
+    List<Location> rackBLocations = _context.locations.Where(h => h.locationGroup.name.Contains("RackB") && h.rack == "B2").ToList();
+    var totes = _context.totes.ToList();
+    int maxColumn = (int) rackBLocations.Max(h => (int) h.col);
+    int maxRow = (int) rackBLocations.Max(h => (int) h.row);
+
+
+}
+
+<h1>Rack B2 View</h1>
+<h3>Dispensing rack</h3>
+
+<div>
+    <table style="width:100%;">
+        <tr>
+            <td style="width:70%">
+                <table style="width:100%;">
+                    @for (int row = maxRow; row > 0; row--)
+                    {
+                        <tr>
+                            @for (int col = 1; col <= maxColumn; col++)
+                            {
+                                var frontLocation = rackBLocations.FirstOrDefault(h => h.row == row && h.col == col && h.isBackLocation == false);
+                                var backLocation = rackBLocations.FirstOrDefault(h => h.row == row && h.col == col && h.isBackLocation == true);
+
+                                if (frontLocation != null)
+                                {
+                                    string padding = "6px";
+                                    @if (row > 1)
+                                    {
+                                        padding = "6px";
+                                    }
+                                    else
+                                    {
+                                        padding = "0px";
+                                    }
+
+                                    <td style="padding-top: @padding;">
+                                        @if (backLocation != null)
+                                        {
+                                            @if (backLocation.status != LocationStatus.Enabled)
+                                            {
+                                                <input id="test" style="width:90%;" name="test" type="button" title="Rack A1 location" value=@backLocation.plcId
+                                                       onclick="javascript:LoadLocation('@backLocation.id')" class="btn btn-danger btn-sm"/>
+                                            }
+                                            else if (totes.FirstOrDefault(h => h.locationId == backLocation.id) != null)
+                                            {
+                                                <input id="test" style="width:90%;" name="test" type="button" title="Rack B2 location" value=@backLocation.plcId
+                                                       onclick="javascript:LoadLocation('@backLocation.id')" class="btn btn-success btn-sm"/>
+                                            }
+                                            else
+                                            {
+                                                <input id="test" style="width:90%;" name="test" type="button" title="Rack B2 location" value=@backLocation.plcId
+                                                       onclick="javascript:LoadLocation('@backLocation.id')" class="btn btn-secondary btn-sm"/>
+                                            }
+                                        }
+
+                                        @if (frontLocation.status != LocationStatus.Enabled)
+                                        {
+                                            <input id="test" style="width:90%;" name="test" type="button" title="Rack A1 location" value=@frontLocation.plcId
+                                                   onclick="javascript:LoadLocation('@frontLocation.id')" class="btn btn-danger btn-sm"/>
+                                        }
+                                        else if (totes.FirstOrDefault(h => h.locationId == frontLocation.id) != null)
+                                        {
+                                            <input id="test" style="width:90%; margin-top:1px" name="test" type="button" title="Rack B2 location" value=@frontLocation.plcId
+                                                   onclick="javascript:LoadLocation('@frontLocation.id')" class="btn btn-success btn-sm"/>
+                                        }
+                                        else
+                                        {
+                                            <input id="test" style="width:90%; margin-top:1px" name="test" type="button" title="Rack B2 location" value=@frontLocation.plcId
+                                                   onclick="javascript:LoadLocation('@frontLocation.id')" class="btn btn-secondary btn-sm"/>
+                                        }
+
+
+                                    </td>
+                                }
+                                else if (backLocation != null)
+                                {
+                                }
+                                else
+                                {
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                }
+                            }
+                        </tr>
+                    }
+
+                </table>
+            </td>
+            <td style="width:30%">
+                <div id="locationInfo">
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+

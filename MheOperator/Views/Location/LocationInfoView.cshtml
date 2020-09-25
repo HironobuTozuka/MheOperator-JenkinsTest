@@ -1,0 +1,87 @@
+﻿@using Microsoft.EntityFrameworkCore;
+@using Common.Models;
+@using Common.Models.Location
+@using Data;
+@model Common.Models.Location.Location
+
+<div>
+    <strong>
+        @Html.LabelFor(m => m.plcId):
+    </strong>
+    @Html.DisplayFor(m => m.plcId)
+</div>
+<div>
+    <strong>
+        @Html.LabelFor(m => m.col):
+    </strong>
+    @Html.DisplayFor(m => m.col)
+</div>
+<div>
+    <strong>
+        @Html.LabelFor(m => m.row):
+    </strong>
+    @Html.DisplayFor(m => m.row)
+</div>
+<div>
+    <strong>
+        @Html.LabelFor(m => m.locationHeight):
+    </strong>
+    @Html.DisplayFor(m => m.locationHeight)
+</div>
+<div>
+    <strong>
+        @Html.LabelFor(m => m.zoneId):
+    </strong>
+    @Html.DisplayFor(m => m.zoneId)
+</div>
+
+@if (Model.storedTote != null)
+{
+    <div>
+        <strong>
+            @Html.LabelFor(m => m.storedTote.id):
+        </strong>
+        @Html.DisplayFor(m => m.storedTote.id)
+    </div>
+    <div>
+        <strong>
+            @Html.LabelFor(m => m.storedTote.toteBarcode):
+        </strong>
+        @Html.DisplayFor(m => m.storedTote.toteBarcode)
+    </div>
+    if (Model.storedTote.type != null)
+    {
+        <div>
+            <strong>
+                @Html.Label("Tote type"):
+            </strong>
+            @Html.Label(Model.storedTote.type.toteHeight.ToString())
+            @Html.Label(Model.storedTote.type.totePartitioning.ToString())
+
+        </div>
+    }
+}
+
+<div>
+    @if (Model.status == LocationStatus.Enabled)
+    {
+        <input id="Disable" style="width:90%;" name="Disable" type="button" title="Disable" value=Disable
+               onclick="javascript: DisableLocation()" class="btn btn-danger btn-sm"/>
+    }
+    else
+    {
+        <input id="Enable" style="width:90%;" name="Enable" type="button" title="Enable" value=Enable
+               onclick="javascript: EnableLocation()" class="btn btn-success btn-sm"/>
+    }
+
+
+</div>
+
+<script type="text/javascript">
+    function EnableLocation() {
+        $('#RackView').load('/Location/EnableLocation?id=' + @Model.id);
+    };
+    function DisableLocation() {
+        $('#RackView').load('/Location/DisableLocation?id=' + @Model.id);
+    };
+</script>

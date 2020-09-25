@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Active Requests";
+}
+@using Common.Models
+@using Common.Models.Task
+@model List<Common.Models.Task.TaskBundle>;
+
+<h1>Task view</h1>
+
+@foreach (var taskBundle in Model)
+{
+    <div>
+
+        <h3>Task bundle id: @taskBundle.taskBundleId.ToString()</h3>
+        <input type="button" title="Delete" class="btn btn-primary btn-sm" value="Delete" onclick="location.href='@Url.Action("DeleteTaskBundle", "TaskView", new {taskBundleId = @taskBundle.taskBundleId.ToString()})'"/>
+
+    </div>
+
+
+    <table width="100%" class="table table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th>Id</th>
+            <th>Status</th>
+            <th>Task Type</th>
+            <th>Tote Id</th>
+            <th>Requested location</th>
+            <th>Dest Tote Id</th>
+            <th>Product Barcode</th>
+            <th>Quantity</th>
+            <th>Internal</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var task in taskBundle.tasks)
+        {
+            <tr>
+                <td>@task.taskId</td>
+                <td>@task.taskStatus</td>
+
+                @{
+                    if (task is PickTask taskAsPickTask)
+                    {
+                        <td>PickTask</td>
+                        <td>@taskAsPickTask.sourceTote.toteId, slot: @taskAsPickTask.sourceTote.slotId</td>
+                        <td>&nbsp;</td>
+                        <td>@taskAsPickTask.destTote.toteId, slot: @taskAsPickTask.destTote.slotId</td>
+                        <td>@taskAsPickTask.barcode</td>
+                        <td>@taskAsPickTask.quantity</td>
+                        <td>@taskAsPickTask.isInternal</td>
+                    }
+
+                    if (task is MoveTask taskAsMoveTask)
+                    {
+                        <td>MoveTask</td>
+                        <td>@taskAsMoveTask.toteId</td>
+                        <td>@taskAsMoveTask.destZone</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>@taskAsMoveTask.isInternal</td>
+                    }
+
+                    if (task is DeliverTask taskAsDeliverTask)
+                    {
+                        string slots = "";
+
+                        foreach (var slot in @taskAsDeliverTask.slots)
+                        {
+                            slots += slot + ", ";
+                        }
+
+                        <td>DeliverTask</td>
+                        <td>@taskAsDeliverTask.toteId slots: @slots</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>@taskAsDeliverTask.isInternal</td>
+                    }
+
+                    <td>
+                        <input type="button" title="Complete" class="btn btn-primary btn-sm" value="Complete" onclick="location.href='@Url.Action("CompleteTask", "TaskView", new {taskId = task.taskId})'"/>
+                        <input type="button" title="Fail" class="btn btn-primary btn-sm" value="Fail" onclick="location.href='@Url.Action("FailTask", "TaskView", new {taskId = task.taskId})'"/>
+                    </td>
+                }
+
+            </tr>
+        }
+        </tbody>
+    </table>
+    <br/>
+}

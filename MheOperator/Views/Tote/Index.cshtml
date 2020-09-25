@@ -1,0 +1,70 @@
+﻿@using Common.Models;
+@using Common.Models.Tote
+@using Data;
+@using Microsoft.EntityFrameworkCore;
+@model List<Common.Models.Tote.Tote>;
+
+@{
+    ViewData["Title"] = "Totes view";
+}
+
+<style>
+    hr {
+        margin-top: 2px;
+        margin-bottom: 1px;
+    }
+</style>
+
+<h1>Totes view</h1>
+
+<table width="100%" class="table table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>Barcode</th>
+            <th>Type</th>
+            <th>Actual location</th>
+            <th>Storage location</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Tote tote in Model)
+        {
+        <tr>
+            <td class='clickable-row' data-href='/Tote/ModifyTote?toteId=@tote.id'>@tote.toteBarcode</td>
+            <td class='clickable-row' data-href='/Tote/ModifyTote?toteId=@tote.id'>@tote.type.ToString()</td>
+            @if (tote.location != null)
+            {
+                <td class='clickable-row' data-href='/Tote/ModifyTote?toteId=@tote.id'>@tote.location.plcId</td>
+            }
+            else
+            {
+                <td class='clickable-row' data-href='/Tote/ModifyTote?toteId=@tote.id'>Unknown</td>
+            }
+            @if (tote.storageLocation != null)
+            {
+                <td class='clickable-row' data-href='/Tote/ModifyTote?toteId=@tote.id'>@tote.storageLocation.plcId</td>
+            }
+            else
+            {
+                <td class='clickable-row' data-href='/Tote/ModifyTote?toteId=@tote.id'></td>
+            }
+            <td class='clickable-row' data-href='/Tote/ModifyTote?toteId=@tote.id'>@tote.status.ToString()</td>
+            <td><input type="button" title="Delete" class="btn btn-danger btn-sm" value="Delete" onclick="location.href='@Url.Action("DeleteTote", "Tote", new { toteId = tote.id })'" /></td>
+        </tr>
+        }
+    </tbody>
+</table>
+<br />
+<input type="button" title="Add Tote" class="btn btn-success btn-sm" value="Add Tote" onclick="location.href='@Url.Action("AddTote", "Tote")'" />
+
+@section Scripts {
+    <script type="text/javascript">
+        $(".clickable-row").click(function () {
+            window.location = $(this).data("href");
+        });
+    </script>
+
+}
+

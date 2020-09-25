@@ -1,0 +1,77 @@
+﻿@using Common.Models;
+@using Common.Models.Location
+@using Data;
+@model Common.Models.Location.Location
+@{
+    ViewData["Title"] = "Service locations View";
+    var _context = (StoreDbContext) ViewData["context"];
+    List<Location> serviceLocations = _context.locations.Where(h => h.zone.function == LocationFunction.OrderGate || h.plcId.Contains("LOAD")).ToList();
+}
+
+<h1>Service locations View</h1>
+<h3>All human interaction areas</h3>
+
+<div>
+    <table style="width:100%;">
+        <tr>
+            <td style="width:70%">
+                <table style="width:100%;">
+                    @for (int row = 1; row <= 5; row++)
+                    {
+                        <tr>
+                            @for (int col = 1; col <= 4; col++)
+                            {
+                                Location location = null;
+                                if (col == 4 && row < 3)
+                                {
+                                    location = serviceLocations.FirstOrDefault(h => h.col == 3 - row && h.plcId.Contains("ORDER"));
+                                }
+                                if (col < 3 && row > 3)
+                                {
+                                    location = serviceLocations.FirstOrDefault(h => h.col == col && h.row == row - 3 && h.plcId.Contains("LOAD"));
+                                }
+                                if (location != null)
+                                {
+                                    <td>
+                                        @if (_context.totes.FirstOrDefault(h => h.locationId == location.id) != null)
+                                        {
+                                            <input id="test" style="width:90%;  height:120px;" name="test" type="button" title="Rack B2 location" value=@location.plcId
+                                                   onclick="javascript:LoadLocation('@location.id')" class="btn btn-success btn-sm"/>
+                                        }
+                                        else
+                                        {
+                                            <input id="test" style="width:90%;  height:120px;" name="test" type="button" title="Rack B2 location" value=@location.plcId
+                                                   onclick="javascript:LoadLocation('@location.id')" class="btn btn-secondary btn-sm"/>
+                                        }
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <br/>
+                                        <br/>
+                                    </td>
+                                }
+                            }
+                        </tr>
+                    }
+
+                </table>
+            </td>
+            <td style="width:30%">
+                <div id="locationInfo">
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,90 @@
+﻿@using Common.Models;
+@using Common.Models.Location
+@using Data;
+@model Common.Models.Location.Location
+@{
+    ViewData["Title"] = "Rack A2 View";
+    var _context = (StoreDbContext) ViewData["context"];
+    List<Location> rackALocations = _context.locations.Where(h => h.locationGroup.name.Contains("RackA") && h.rack == "A2").ToList();
+    var totes = _context.totes.ToList();
+    int maxColumn = (int) rackALocations.Max(h => (int) h.col);
+    int maxRow = (int) rackALocations.Max(h => (int) h.row);
+
+}
+
+<h1>Rack A2 View</h1>
+<h3>Warehouse rack</h3>
+
+<div>
+    <table style="width:100%;">
+        <tr>
+            <td style="width:70%">
+                <table style="width:100%;">
+                    @for (int row = maxRow; row > 0; row--)
+                    {
+                        <tr>
+                            @for (int col = maxColumn; col >= 1; col--)
+                            {
+                                var location = rackALocations.FirstOrDefault(h => h.row == row && h.col == col);
+
+                                if (location != null)
+                                {
+                                    <td>
+                                        @if (location.status != LocationStatus.Enabled)
+                                        {
+                                            <input id="test" style="width:90%;" name="test" type="button" title="Rack A1 location" value=@location.plcId
+                                                   onclick="javascript:LoadLocation('@location.id')" class="btn btn-danger btn-sm"/>
+                                        }
+                                        else if (totes.FirstOrDefault(h => h.locationId == location.id) != null)
+                                        {
+                                            <input id="test" style="width:90%;" name="test" type="button" title="Rack A1 location" value=@location.plcId
+                                                   onclick="javascript:LoadLocation('@location.id')" class="btn btn-success btn-sm"/>
+                                        }
+                                        else
+                                        {
+                                            <input id="test" style="width:90%;" name="test" type="button" title="Rack A1 location" value=@location.plcId
+                                                   onclick="javascript:LoadLocation('@location.id')" class="btn btn-secondary btn-sm"/>
+                                        }
+
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                }
+                            }
+                        </tr>
+                    }
+
+                </table>
+            </td>
+            <td style="width:30%">
+                <div id="locationInfo">
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        //$('#locationInfo').load('/Location/LocationPress', new { locationName = posName });
+        // trigger an ajax request to the controller action every 1s
+        // and inject the returned HTML fragment into a div with id="result"
+        function LoadLocation(posId) {
+            $('#locationInfo').load('/Location/LocationPress?locationName=' + posId);
+        };
+    </script>
+
+}
+
+
+
+
+
+
+

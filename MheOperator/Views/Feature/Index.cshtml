@@ -1,0 +1,136 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h2>Enable or deisable features</h2>
+</div>
+
+<div class="table table-bordered">
+    <div class="row">
+        <div class="col">
+            <div class="row border justify-content-center">
+                <h3>Tote timeout</h3>
+            </div>
+            <div class="row border">
+                <div class="col">
+                    <input id="DisableToteTimeout" style="width:90%;" name="Disable" type="button" title="Disable tote timeout" value="Disable"
+                           onclick="DisableToteTimeout()" class="btn btn-danger btn-sm"/>
+                </div>
+                <div class="col">
+                    <input id="EnableToteTimeout" style="width:90%;" name="Enable" type="button" title="Enable tote timeout" value="Enable"
+                           onclick="EnableToteTimeout()" class="btn btn-success btn-sm"/>
+                </div>
+                <div class="col">
+                    <input id="ExecuteToteTimeout" style="width:90%;" name="Execute" type="button" title="Execute tote timeout" value="Execute"
+                           onclick="ExecuteToteTimeout()" class="btn btn-warning btn-sm"/>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col">
+            <div class="row border justify-content-center">
+                <h3>Task timeout</h3>
+            </div>
+            <div class="row border">
+                <div class="col">
+                    <input id="DisableTaskTimeout" style="width:90%;" name="Disable" type="button" title="Disable task timeout" value="Disable"
+                           onclick="DisableTaskTimeout()" class="btn btn-danger btn-sm"/>
+                </div>
+                <div class="col">
+                    <input id="EnableTaskTimeout" style="width:90%;" name="Enable" type="button" title="Enable task timeout" value="Enable"
+                           onclick="EnableTaskTimeout()" class="btn btn-success btn-sm"/>
+                </div>
+                <div class="col">
+                    <input id="ExecuteTaskTimeout" style="width:90%;" name="Execute" type="button" title="Execute task timeout" value="Execute"
+                           onclick="ExecuteTaskTimeout()" class="btn btn-warning btn-sm"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="row border justify-content-center">
+                <h3>Tote unknown location timeout</h3>
+            </div>
+            <div class="row border">
+                <div class="col">
+                    <input id="DisableToteLocationUnknownTimeout" style="width:90%;" name="Disable" type="button" title="Disable tote timeout" value="Disable"
+                           onclick="DisableTaskTimeout()" class="btn btn-danger btn-sm"/>
+                </div>
+                <div class="col">
+                    <input id="EnableToteLocationUnknownTimeout" style="width:90%;" name="Enable" type="button" title="Enable tote timeout" value="Enable"
+                           onclick="EnableTaskTimeout()" class="btn btn-success btn-sm"/>
+                </div>
+                <div class="col">
+                    <input id="ExecuteToteLocationUnknownTimeout" style="width:90%;" name="Execute" type="button" title="Execute tote timeout" value="Execute"
+                           onclick="ExecuteTaskTimeout()" class="btn btn-warning btn-sm"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+    function EnableToteTimeout() {
+        const Http = new XMLHttpRequest();
+        const url='/api/internal/tote_watchdog:enable';
+        Http.open("POST", url);
+        Http.send();
+    }
+    function DisableToteTimeout() {
+        const Http = new XMLHttpRequest();
+        const url='/api/internal/tote_watchdog:disable';
+        Http.open("POST", url);
+        Http.send();
+    }
+    function ExecuteToteTimeout() {
+        const Http = new XMLHttpRequest();
+        const url='/api/internal/tote_watchdog:execute';
+        Http.open("POST", url);
+        Http.send();
+    }
+    function EnableTaskTimeout() {
+        const Http = new XMLHttpRequest();
+        const url='/api/internal/task_watchdog:enable';
+        Http.open("POST", url);
+        Http.send();
+    }
+    function DisableTaskTimeout() {
+        const Http = new XMLHttpRequest();
+        const url='/api/internal/task_watchdog:disable';
+        Http.open("POST", url);
+        Http.send();
+    }
+    function ExecuteTaskTimeout() {
+        const Http = new XMLHttpRequest();
+        const url='/api/internal/task_watchdog:execute';
+        Http.open("POST", url);
+        Http.send();
+    }
+    
+        function EnableToteLocationUnknownTimeout() {
+            const Http = new XMLHttpRequest();
+            const url='/api/internal/tote_unknown_location_watchdog:enable';
+            Http.open("POST", url);
+            Http.send();
+        }
+        function DisableToteLocationUnknownTimeout() {
+            const Http = new XMLHttpRequest();
+            const url='/api/internal/tote_unknown_location_watchdog:disable';
+            Http.open("POST", url);
+            Http.send();
+        }
+        function ExecuteToteLocationUnknownTimeout() {
+            const Http = new XMLHttpRequest();
+            const url='/api/internal/tote_unknown_location_watchdog:execute';
+            Http.open("POST", url);
+            Http.send();
+        }
+</script>

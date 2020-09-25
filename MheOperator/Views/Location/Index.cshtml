@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "Store view";
+}
+
+    <div>
+        <input type="button" class="btn btn-primary btn-sm" title="Locations overview" value="Locations overview" onclick="javascript:LoadOvwerviewView()" />
+        <input type="button" class="btn btn-primary btn-sm" title="Rack A1 view" value="Rack A1 view" onclick="javascript:LoadRackA1()" />
+        <input type="button" class="btn btn-primary btn-sm" title="Rack A2 view" value="Rack A2 view" onclick="javascript:LoadRackA2()" />
+        <input type="button" class="btn btn-primary btn-sm" title="Conveyor view" value="Conveyor view" onclick="javascript:LoadConveyor()" />
+        <input type="button" class="btn btn-primary btn-sm" title="Rack B1 view" value="Rack B1 view" onclick="javascript:LoadRackB1()" />
+        <input type="button" class="btn btn-primary btn-sm" title="Rack B2 view" value="Rack B2 view" onclick="javascript:LoadRackB2()" />
+        <input type="button" class="btn btn-primary btn-sm" title="Service locations view" value="Service locations view" onclick="javascript:LoadServiceLocations()" />
+    </div>
+
+<div id="RackView" />
+
+@section Scripts {
+    <script type="text/javascript">
+        $('#RackView').load('/Location/OvwerviewView');
+        //$('#locationInfo').load('/Location/LocationPress', new { locationName = posName });
+        // trigger an ajax request to the controller action every 1s
+        // and inject the returned HTML fragment into a div with id="result"
+        function LoadOvwerviewView() {
+            $('#RackView').load('/Location/OvwerviewView');
+        };
+        function LoadRackA1() {
+            $('#RackView').load('/Location/RackA1View');
+        };
+        function LoadRackB1() {
+            $('#RackView').load('/Location/RackB1View');
+        };
+        function LoadRackA2() {
+            $('#RackView').load('/Location/RackA2View');
+        };
+        function LoadRackB2() {
+            $('#RackView').load('/Location/RackB2View');
+        };
+        function LoadConveyor() {
+            $('#RackView').load('/Location/ConveyorView');
+        };
+        function LoadServiceLocations() {
+            $('#RackView').load('/Location/ServiceLocationsView');
+        };
+    </script>
+
+    <script type="text/javascript">
+        //$('#locationInfo').load('/Location/LocationPress', new { locationName = posName });
+        // trigger an ajax request to the controller action every 1s
+        // and inject the returned HTML fragment into a div with id="result"
+        function LoadLocation(posId) {
+            $('#locationInfo').load('/Location/LocationPress?locationId=' + posId);
+        };
+    </script>
+
+}

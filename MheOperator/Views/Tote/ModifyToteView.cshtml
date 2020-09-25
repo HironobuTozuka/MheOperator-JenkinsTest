@@ -1,0 +1,111 @@
+﻿@using Common.Models;
+@using Common.Models.Tote
+@using Data;
+@using Microsoft.EntityFrameworkCore;
+@model Common.Models.Tote.Tote
+@{
+    var _context = (StoreDbContext)ViewData["context"];
+    ViewData["Title"] = "Modify Tote View";
+    var emptyLocations = _context.locations.Include(h => h.storedTote).Where(h => h.storedTote == null || h.storedTote.id == Model.id);
+}
+
+
+<h1>Modify Tote View</h1>
+
+<style>
+    hr {
+        margin-top: 2px;
+        margin-bottom: 1px;
+    }
+</style>
+
+
+<div>
+    <a href="/Tote">
+        <strong>
+            Back
+        </strong>
+
+    </a>
+    <br />
+
+    <div>
+        <section id="settingsForm">
+            @using (Html.BeginForm("ModifyTote", "Tote", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.id, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="row">
+                    <div class="col-3">
+                        <strong>@Html.LabelFor(m => m.toteBarcode, new { @class = "control-label" }):</strong>
+                    </div>
+                    <div class="col-5">
+                        @Html.TextBoxFor(m => m.toteBarcode, new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-3">
+                        <strong>@Html.LabelFor(m => m.typeId, new { @class = "control-label" }):</strong>
+                    </div>
+                    <div class="col-5">
+                        @Html.DropDownListFor(m => m.typeId, new SelectList(_context.toteTypes, "id", "name"), new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-3">
+                        <strong>@Html.LabelFor(m => m.locationId, new { @class = "control-label" }):</strong>
+                    </div>
+                    <div class="col-5">
+                        @Html.DropDownListFor(m => m.locationId, new SelectList(_context.locations, "id", "plcId").OrderBy(location => location.Text), new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-3">
+                        <strong>@Html.LabelFor(m => m.storageLocationId, new { @class = "control-label" }):</strong>
+                    </div>
+                    <div class="col-5">
+                        @Html.DropDownListFor(m => m.storageLocationId, new SelectList(_context.locations, "id", "plcId").OrderBy(location => location.Text), new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-3">
+                        <strong>@Html.LabelFor(m => m.status, new { @class = "control-label" }):</strong>
+                    </div>
+                    <div class="col-5">
+                        @Html.DropDownListFor(m => m.status, Html.GetEnumSelectList(typeof(ToteStatus)), new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-primary btn-sm" value="Apply" />
+                    </div>
+                </div>
+
+            }
+        </section>
+    </div>
+
+</div>
+
+
+@section Scripts
+{
+    <script>
+        $(".clickable-row").click(function () {
+            window.location = $(this).data("href");
+        });
+
+        $(function () {
+            $.datetimepicker.setDateFormatter('moment');
+            $(".datetimefield").datetimepicker({
+                format: 'DD/MM/YYYY HH:mm',
+                formatTime: 'HH:mm'
+            });
+        });
+    </script>
+}

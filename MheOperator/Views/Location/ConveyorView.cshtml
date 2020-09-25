@@ -1,0 +1,71 @@
+﻿@using Common.Models;
+@using Common.Models.Location
+@using Data;
+@model Common.Models.Location.Location
+@{
+    ViewData["Title"] = "Conveyor View";
+    var _context = (StoreDbContext) ViewData["context"];
+    List<Location> conveyorLocations = _context.locations.Where(h => h.plcId.Contains("CNV") || h.zone.function == LocationFunction.Place || h.zone.function == LocationFunction.Pick).ToList();
+    int maxColumn = (int) conveyorLocations.Max(h => h.col);
+    int maxRow = (int) conveyorLocations.Max(h => h.row);
+
+}
+
+<h1>Conveyor View</h1>
+<h3>Robot conveyor</h3>
+
+<div>
+    <table style="width:100%;">
+        <tr>
+            <td style="width:70%">
+                <table style="width:100%;">
+                    @for (int row = maxRow; row > 0; row--)
+                    {
+                        <tr>
+                            @for (int col = 1; col <= maxColumn; col++)
+                            {
+                                Location location = conveyorLocations.FirstOrDefault(h => h.col == col && h.row == row);
+                                if (location != null)
+                                {
+                                    <td>
+                                        @if (_context.totes.FirstOrDefault(h => h.locationId == location.id) != null)
+                                        {
+                                            <input id="test" style="width:90%; height:170px;" name="test" type="button" title="Rack B2 location" value=@location.plcId
+                                                   onclick="javascript: LoadLocation('@location.id')" class="btn btn-success btn-sm"/>
+                                        }
+                                        else
+                                        {
+                                            <input id="test" style="width:90%; height:170px; margin-top:1px" name="test" type="button" title="Rack B2 location" value=@location.plcId
+                                                   onclick="javascript:LoadLocation('@location.id')" class="btn btn-secondary btn-sm"/>
+                                        }
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                }
+                            }
+                        </tr>
+                    }
+
+                </table>
+            </td>
+            <td style="width:30%">
+                <div id="locationInfo">
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
