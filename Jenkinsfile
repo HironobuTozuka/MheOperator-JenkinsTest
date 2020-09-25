@@ -9,7 +9,7 @@ pipeline {
 
     stage('clone') {
       steps {
-        bat cd 'C:\\Users'
+        bat cd \"OneDrive\"
       }
     }
 
