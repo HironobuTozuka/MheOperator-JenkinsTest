@@ -9,9 +9,9 @@ pipeline {
 
     stage('clone') {
       steps {
-        bat "cd ${WORK_DIR}"
-        bat "rmdir /s /q ${TARGET_DIR}"
-        bat "git clone ${GIT_URL}"
+        sh "cd ${WORK_DIR}"
+        sh "rmdir /s /q ${TARGET_DIR}"
+        sh "git clone ${GIT_URL}"
       }
     }
 
