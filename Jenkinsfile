@@ -27,3 +27,4 @@ pipeline {
     PLATFORM = 'x64'
   }
 }
+
