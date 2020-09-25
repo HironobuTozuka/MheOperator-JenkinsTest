@@ -161,7 +161,7 @@ namespace RcsLogic.Crane
 
         public void HandleTaskBundleRemoved()
         {
-
+llll
             lock (this)
             {
                 _logger.LogInformation("deviceId: {1}, task bundle was removed, planning moves if necessary",
