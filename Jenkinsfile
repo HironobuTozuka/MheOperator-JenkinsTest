@@ -9,7 +9,7 @@ pipeline {
     
     stage('clone') {
       steps {
-        bat "\"${TARGET_DIR}${CLONE_BAT}\""
+        git clone https://github.com/HironobuTozuka/MheOperator-JenkinsTest.git
       }
     }
 
