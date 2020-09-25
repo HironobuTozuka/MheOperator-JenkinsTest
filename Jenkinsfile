@@ -9,7 +9,7 @@ pipeline {
 
     stage('clone') {
       steps {
-        bat cd OneDrive
+        bat cd "\"${TARGET_DIR}\""
       }
     }
 
