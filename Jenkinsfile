@@ -10,7 +10,7 @@ pipeline {
     stage('clone') {
       steps {
         bat "cd ${GIT_DIR}"
-        bat "git clone"
+        bat "git clone https://github.com/HironobuTozuka/MheOperator-JenkinsTest.git"
       }
     }
 
