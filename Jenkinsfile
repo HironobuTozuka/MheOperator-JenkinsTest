@@ -11,7 +11,7 @@ pipeline {
       steps {
         bat "cd ${GIT_DIR}"
         bat "rmdir /s /q ${TARGET_DIR}"
-        bat "git clone https://github.com/HironobuTozuka/MheOperator-JenkinsTest.git"
+        bat 'git clone https://github.com/HironobuTozuka/MheOperator-JenkinsTest.git'
       }
     }
 
