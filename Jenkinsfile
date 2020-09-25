@@ -6,13 +6,6 @@ pipeline {
         echo 'start'
       }
     }
-    
-    stage('clone code') {
-      steps {
-        cd 'C:\\Users\\d0613\\OneDrive\\Documents\\GitHub\\MheOperator-JenkinsTest'
-      }
-    }
-
     stage('build') {
       steps {
         bat "\"${MSBUILD}\" ${TARGET} /p:Configuration=${env.CONFIG};Platform=${env.PLATFORM} /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
