@@ -9,7 +9,7 @@ pipeline {
 
     stage('clone') {
       steps {
-        bat cd TARGET_DIR
+        bat cd
       }
     }
 
