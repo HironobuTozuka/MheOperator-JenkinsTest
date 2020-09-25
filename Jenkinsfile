@@ -9,22 +9,22 @@ pipeline {
 
     stage('clone') {
       steps {
-        bat "\"${TARGET_DIR}${CLONE_BAT}\""
+        bat "\"${GIT_DIR}${CLONE_BAT}\""
       }
     }
 
     stage('build') {
       steps {
-        bat "\"${MSBUILD}\" \"${TARGET_DIR}${TARGET_PRJ}\" /p:Configuration=${env.CONFIG};Platform=\"${env.PLATFORM}\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
+        bat "\"${MSBUILD}\" \"${GIT_DIR}${TARGET_PRJ}\" /p:Configuration=${env.CONFIG};Platform=\"${env.PLATFORM}\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
       }
     }
 
   }
   environment {
     MSBUILD = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe'
-    TARGET_DIR = 'C:\\Users\\d0613\\OneDrive\\Documents\\GitHub\\MheOperator-JenkinsTest\\'
-    TARGET_PRJ = 'MheOperator.sln'
-    CLONE_BAT = 'gitpull.bat'
+    GIT_DIR = 'C:\\Users\\d0613\\OneDrive\\Documents\\GitHub\\'
+    TARGET_PRJ = 'MheOperator-JenkinsTest\\MheOperator.sln'
+    CLONE_BAT = 'clone.bat'
     CONFIG = 'Release'
     PLATFORM = 'Any CPU'
   }
