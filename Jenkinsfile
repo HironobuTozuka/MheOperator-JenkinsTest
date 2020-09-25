@@ -6,6 +6,7 @@ pipeline {
         echo 'start'
       }
     }
+    
     stage('clone code') {
       steps {
         cd 'C:\\Users\\d0613\\OneDrive\\Documents\\GitHub\\MheOperator-JenkinsTest'
