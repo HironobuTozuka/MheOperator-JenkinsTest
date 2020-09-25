@@ -3,13 +3,12 @@ pipeline {
   stages {
     stage('initialize') {
       steps {
-        echo 'start'
+        bat "echo %~dp0"
       }
     }
 
     stage('clone') {
       steps {
-        bat 'echo %~dp0'
       }
     }
 
