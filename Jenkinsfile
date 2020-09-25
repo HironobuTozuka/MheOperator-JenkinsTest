@@ -9,7 +9,7 @@ pipeline {
 
     stage('clone') {
       steps {
-        bat git clone
+        bat "git clone"
       }
     }
 
