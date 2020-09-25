@@ -9,7 +9,7 @@ pipeline {
 
     stage('clone') {
       steps {
-        sh "echo $0"
+        sh "echo ${PWD}"
       }
     }
 
