@@ -9,7 +9,7 @@ pipeline {
 
     stage('clone') {
       steps {
-        sh "echo ${GIT_URL}"
+        sh "echo \"${GIT_URL}\""
       }
     }
 
