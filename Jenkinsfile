@@ -16,7 +16,11 @@ pipeline {
     stage('build') {
       steps {
         bat 'echo %~dp0'
-        bat 'cd ..\\..\\MheOperator-JenkinsTest_master'
+        bat 'cd ..'
+        bat 'echo %~dp0'
+        bat 'cd ..'
+        bat 'echo %~dp0'
+        bat 'cd MheOperator-JenkinsTest_master'
         bat 'echo %~dp0'
         bat "\"${MSBUILD}\" \"${TARGET_PRJ}\" /p:Configuration=${env.CONFIG};Platform=\"${env.PLATFORM}\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
       }
