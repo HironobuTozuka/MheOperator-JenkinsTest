@@ -15,7 +15,7 @@ pipeline {
 
     stage('build') {
       steps {
-        bat "\"${MSBUILD}\" ${TARGET}${TARGET_PRJ} /p:Configuration=${env.CONFIG};Platform=\"${env.PLATFORM}\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
+        bat "\"${MSBUILD}\" \"${TARGET_DIR}${TARGET_PRJ}\" /p:Configuration=${env.CONFIG};Platform=\"${env.PLATFORM}\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
       }
     }
 
