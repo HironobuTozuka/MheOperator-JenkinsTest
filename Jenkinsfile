@@ -15,7 +15,7 @@ pipeline {
 
   }
   environment {
-    MSBUILD = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\'
+    MSBUILD = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe'
     CONFIG = 'Release'
     PLATFORM = 'x64'
   }
