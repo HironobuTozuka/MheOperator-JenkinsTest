@@ -10,7 +10,7 @@ pipeline {
     stage('clone') {
       steps {
         sh "SCRIPT_DIR=$(cd $(dirname $0); pwd)"
-        sh "echo $SCRIPT_DIR"
+        sh "echo ${SCRIPT_DIR}"
       }
     }
 
