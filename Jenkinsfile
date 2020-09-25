@@ -14,8 +14,8 @@ pipeline {
 
     stage('build') {
       steps {
-        bat "NuGet.exe restore your_project.sln"
-        bat "\"${MSBUILD}\" your_project.sln /p:Configuration=${env.CONFIG};Platform=${env.PLATFORM} /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
+        bat "NuGet.exe restore MheOperator.sln"
+        bat "\"${MSBUILD}\" MheOperator.sln /p:Configuration=${env.CONFIG};Platform=${env.PLATFORM} /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
       }
     }
 
