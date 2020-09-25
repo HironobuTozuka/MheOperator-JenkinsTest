@@ -3,14 +3,14 @@ pipeline {
   stages {
     stage('initialize') {
       steps {
-        bat "echo %~dp0"
-        bat "cd .."
+        bat 'echo %~dp0'
+        bat 'cd ..'
       }
     }
 
     stage('clone') {
       steps {
-        bat "echo %~dp0"
+        bat 'echo %~dp0'
       }
     }
 
