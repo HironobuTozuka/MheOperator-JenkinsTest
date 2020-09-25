@@ -9,7 +9,7 @@ pipeline {
 
     stage('clone') {
       steps {
-        bat cd "${TARGET_DIR}"
+        bat "\"${TARGET_DIR}${CLONE_BAT}\""
       }
     }
 
@@ -24,6 +24,7 @@ pipeline {
     MSBUILD = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe'
     TARGET_DIR = 'C:\\Users\\d0613\\OneDrive\\Documents\\GitHub\\MheOperator-JenkinsTest\\'
     TARGET_PRJ = 'MheOperator.sln'
+    CLONE_BAT = 'clone.bat'
     CONFIG = 'Release'
     PLATFORM = 'Any CPU'
   }
