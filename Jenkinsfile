@@ -9,7 +9,7 @@ pipeline {
 
     stage('build') {
       steps {
-        bat "\"${NUGET}\" \"${TARGET_PRJ}\""
+        bat "\"${NUGET}\" restore \"${TARGET_PRJ}\""
         bat "\"${MSBUILD}\" \"${TARGET_PRJ}\" /t:Clean;Build /p:Configuration=${env.CONFIG};Platform=\"${env.PLATFORM}\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
       }
     }
