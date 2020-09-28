@@ -9,6 +9,7 @@ pipeline {
 
     stage('build') {
       steps {
+        bat "\"${NUGET}\" \"${TARGET_PRJ}\""
         bat "\"${MSBUILD}\" \"${TARGET_PRJ}\" /t:Clean;Build /p:Configuration=${env.CONFIG};Platform=\"${env.PLATFORM}\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
       }
     }
@@ -28,6 +29,7 @@ pipeline {
   }
   environment {
     MSBUILD = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe'
+    NUGET = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\MSBuild\\ReadyRoll\\OctoPack\\build\\NuGet.exe'
     TARGET_PRJ = 'C:\\Jenkins\\workspace\\MheOperator-JenkinsTest_master\\MheOperator.sln'
     CONFIG = 'Release'
     PLATFORM = 'Any CPU'
