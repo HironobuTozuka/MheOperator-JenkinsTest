@@ -13,6 +13,18 @@ pipeline {
       }
     }
 
+    stage('unit test') {
+      steps {
+        echo 'unitTest'
+      }
+    }
+
+    stage('deploy') {
+      steps {
+        echo 'deploy'
+      }
+    }
+
   }
   environment {
     MSBUILD = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe'
