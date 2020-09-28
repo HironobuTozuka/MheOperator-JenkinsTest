@@ -9,6 +9,7 @@ pipeline {
 
     stage('build') {
       steps {
+        bat "\"${MSBUILD}\" \"${TARGET_PRJ}\" /t:restore /p:Configuration=${env.CONFIG};Platform=\"${env.PLATFORM}\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
         bat "\"${MSBUILD}\" \"${TARGET_PRJ}\" /p:Configuration=${env.CONFIG};Platform=\"${env.PLATFORM}\" /maxcpucount:%NUMBER_OF_PROCESSORS% /nodeReuse:false"
       }
     }
