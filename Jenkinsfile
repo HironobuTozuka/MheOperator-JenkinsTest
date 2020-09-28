@@ -9,8 +9,8 @@ pipeline {
 
     stage('build') {
       steps {
-        bat "donet clean \"${TARGET_PRJ}\""
-        bat "donet build \"${TARGET_PRJ}\""
+        bat "dotnet clean \"${TARGET_PRJ}\""
+        bat "dotnet build \"${TARGET_PRJ}\""
       }
     }
 
