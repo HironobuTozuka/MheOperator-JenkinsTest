@@ -9,8 +9,8 @@ pipeline {
 
     stage('build') {
       steps {
-        bat "dotnet clean \"${TARGET_PRJ}\""
-        bat "dotnet build \"${TARGET_PRJ}\""
+        bat "\"${DOTNET}\" clean \"${TARGET_PRJ}\""
+        bat "\"${DOTNET}\" build \"${TARGET_PRJ}\""
       }
     }
 
@@ -29,5 +29,6 @@ pipeline {
   }
   environment {
     TARGET_PRJ = 'C:\\Jenkins\\workspace\\MheOperator-JenkinsTest_master\\MheOperator.sln'
+    DOTNET = 'C:\\Program Files\\dotnet\\dotnet'
   }
 }
