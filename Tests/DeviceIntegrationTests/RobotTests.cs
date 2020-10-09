@@ -41,8 +41,8 @@ namespace Tests
             var taskBundle =
                     (MockUtils.MockPickTaskBundle("0000002", "0000001", "CNV4_2", "RPP1", 1, 2, _serviceProvider));
 
-                TestPicking(taskBundle);
-            }
+            TestPicking(taskBundle);
+        }
         
         [Test]
         public void TestDestToteNotDetectedError()

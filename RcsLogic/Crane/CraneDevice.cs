@@ -17,7 +17,12 @@ using RcsLogic.RcsController.Recovery;
 using RcsLogic.Robot;
 using RcsLogic.Services;
 using static RcsLogic.CraneState.Shelf;
-
+/// <summary>
+/// 
+/// 
+/// //ttt
+/// 
+/// </summary>
 namespace RcsLogic.Crane
 {
     public enum CraneType
